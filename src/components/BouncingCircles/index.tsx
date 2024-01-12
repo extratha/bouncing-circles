@@ -1,53 +1,76 @@
 "use client"
 import React, { useEffect, useRef } from 'react';
-const BouncingCircles: React.FC = () => {
+
+interface Circle {
+  x: number;
+  y: number;
+  radius: number;
+  vx: number;
+  vy: number;
+}
+interface BouncingCirclesProps {
+  numberOfCircles?: number,
+  constantSpeed?: number,
+  baseCircleSize?:number,
+  circleColor?: string,
+  connectedLineColor?: string,
+  connectedLineWidth?: number,
+  connectedRadius?: number,
+  maximumConnection?: number,
+}
+const defaultBouncingCirclesProps = {
+  numberOfCircles: 50,
+  constantSpeed: 0.5,
+  circleColor: "rgba(210,208,220,0.5)",
+  baseCircleSize: 1,
+  connectedLineColor: "rgba(210,208,220,0.5)",
+  connectedLineWidth: 1,
+  connectedRadius: 100,
+  maximumConnection: 3,
+}
+const BouncingCircles: React.FC<BouncingCirclesProps> = ({
+  numberOfCircles = defaultBouncingCirclesProps.numberOfCircles,
+  constantSpeed = defaultBouncingCirclesProps.constantSpeed,
+  baseCircleSize = defaultBouncingCirclesProps.baseCircleSize,
+  circleColor = defaultBouncingCirclesProps.circleColor,
+  connectedLineColor = defaultBouncingCirclesProps.connectedLineColor,
+  connectedLineWidth = defaultBouncingCirclesProps.connectedLineWidth,
+  connectedRadius = defaultBouncingCirclesProps.connectedRadius,
+  maximumConnection = defaultBouncingCirclesProps.maximumConnection,
+}) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  interface Circle {
-    x: number;
-    y: number;
-    radius: number;
-    vx: number;
-    vy: number;
-  }
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    const devicePixelRatio =  1;
+    const devicePixelRatio = 1;
     canvas.width = canvas.parentElement?.clientWidth || window.innerWidth;
     canvas.height = (canvas.parentElement)?.clientHeight ?
       canvas.parentElement.clientHeight
       : 400;
     ctx.scale(devicePixelRatio, devicePixelRatio);
 
-    const numberOfCircles = 50;
-    const circles: Circle[] = [];
-    const constantSpeed = 0.5; // Set your desired constant speed
-    const circleColor = "rgba(210,208,220,0.5)";
-    const connectedLineColor = "rgba(210,208,220,0.5)";
-    const connectedLineWidth = 1;
-    const connectedRadius= 100;
-    const maximumConnection = 3;
+    const circles = [] as Circle[]
 
 
-    function createCircle(): Circle {
-      // Random size between 1px and 5px
-      const radius = Math.random() * (5 - 1) + 1;
+      function createCircle(): Circle {
+        // Random size between 1px and 5px
+        const radius = Math.random() * (5 - 1) + baseCircleSize;
 
-      // Random speed between 0.5 and 2.0 for smaller circles
-      const speed = radius <= 3 ? Math.random() * (3 - 1) + 1 : Math.random() * (1.0 - 0.1) + 0.1;
-      if (!canvas) return { x: 0, y: 0, radius, vx: 0, vy: 0 }
-      return {
-        x: Math.random() * (canvas.width - 2 * radius) + radius,
-        y: Math.random() * (canvas.height - 2 * radius) + radius,
-        radius: radius,
-        vx: constantSpeed * (Math.random() > 0.5 ? 1 : -1) * speed,
-        vy: constantSpeed * (Math.random() > 0.5 ? 1 : -1) * speed,
-      };
-    }
+        // Random speed between 0.5 and 2.0 for smaller circles
+        const speed = radius <= 3 ? Math.random() * (3 - 1) + 1 : Math.random() * (1.0 - 0.1) + 0.1;
+        if (!canvas) return { x: 0, y: 0, radius, vx: 0, vy: 0 }
+        return {
+          x: Math.random() * (canvas.width - 2 * radius) + radius,
+          y: Math.random() * (canvas.height - 2 * radius) + radius,
+          radius: radius,
+          vx: constantSpeed * (Math.random() > 0.5 ? 1 : -1) * speed,
+          vy: constantSpeed * (Math.random() > 0.5 ? 1 : -1) * speed,
+        };
+      }
 
     function drawCircle(circle: Circle): void {
       // Draw circles with pastel blue fill color

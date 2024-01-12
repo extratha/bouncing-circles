@@ -18,7 +18,11 @@ const BouncingCircleDemo: React.FC = () => {
 						transform: "translateY(50%)",
 					}}
         >Welcome to BouncingCircles Demo</h1>
-        <BouncingCircles />
+        <BouncingCircles
+					circleColor="#e5e0f4"
+					baseCircleSize={2}
+					connectedRadius={140}
+				/>
       </div>
     </div>
   );
