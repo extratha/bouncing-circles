@@ -8,7 +8,7 @@ interface Circle {
   vx: number;
   vy: number;
 }
-interface BouncingCirclesProps {
+interface LocalBouncingCirclesProps {
   width?: number,
   height? : number ,
   numberOfCircles?: number,
@@ -20,7 +20,7 @@ interface BouncingCirclesProps {
   connectedRadius?: number,
   maximumConnection?: number,
 }
-const defaultBouncingCirclesProps = {
+const defaultLocalBouncingCirclesProps = {
   numberOfCircles: 50,
   constantSpeed: 0.5,
   circleColor: "rgba(210,208,220,0.5)",
@@ -30,17 +30,17 @@ const defaultBouncingCirclesProps = {
   connectedRadius: 100,
   maximumConnection: 3,
 }
-const BouncingCircles: React.FC<BouncingCirclesProps> = ({
+const LocalBouncingCircles: React.FC<LocalBouncingCirclesProps> = ({
   width: widthProps,
   height : heightProps,
-  numberOfCircles = defaultBouncingCirclesProps.numberOfCircles,
-  constantSpeed = defaultBouncingCirclesProps.constantSpeed,
-  baseCircleSize = defaultBouncingCirclesProps.baseCircleSize,
-  circleColor = defaultBouncingCirclesProps.circleColor,
-  connectedLineColor = defaultBouncingCirclesProps.connectedLineColor,
-  connectedLineWidth = defaultBouncingCirclesProps.connectedLineWidth,
-  connectedRadius = defaultBouncingCirclesProps.connectedRadius,
-  maximumConnection = defaultBouncingCirclesProps.maximumConnection,
+  numberOfCircles = defaultLocalBouncingCirclesProps.numberOfCircles,
+  constantSpeed = defaultLocalBouncingCirclesProps.constantSpeed,
+  baseCircleSize = defaultLocalBouncingCirclesProps.baseCircleSize,
+  circleColor = defaultLocalBouncingCirclesProps.circleColor,
+  connectedLineColor = defaultLocalBouncingCirclesProps.connectedLineColor,
+  connectedLineWidth = defaultLocalBouncingCirclesProps.connectedLineWidth,
+  connectedRadius = defaultLocalBouncingCirclesProps.connectedRadius,
+  maximumConnection = defaultLocalBouncingCirclesProps.maximumConnection,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -256,4 +256,4 @@ const BouncingCircles: React.FC<BouncingCirclesProps> = ({
   );
 };
 
-export default BouncingCircles;
+export default LocalBouncingCircles;

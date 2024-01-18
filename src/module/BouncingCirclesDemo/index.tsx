@@ -1,5 +1,5 @@
 import React from "react";
-import BouncingCircles from "t-bouncing-circles";
+import BouncingCircles from "t-bouncing-circles"
 import LocalBouncingCircles from "@/components/LocalBouncingCircles"
 const BouncingCircleDemo: React.FC = () => {
   return (
@@ -18,11 +18,10 @@ const BouncingCircleDemo: React.FC = () => {
             transform: "translateY(50%)",
           }}
         >Welcome to BouncingCircles Demo</h1>
-        <div style={{height: "900px"}}>
-          <LocalBouncingCircles
-          height={300}></LocalBouncingCircles>
-        {/* <BouncingCircles
-        ></BouncingCircles> */}
+        <div style={{ height: "900px" }}>
+          {/* <LocalBouncingCircles
+          height={300}></LocalBouncingCircles> */}
+          <BouncingCircles></BouncingCircles>
         </div>
       </div>
     </div>
